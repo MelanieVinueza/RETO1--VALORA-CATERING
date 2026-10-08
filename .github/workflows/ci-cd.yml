@@ -109,6 +109,7 @@ jobs:
                     const initialState = await toggle.getAttribute('aria-pressed');
                     if (initialState !== 'true') await toggle.click();
                     assert.equal(await toggle.getAttribute('aria-pressed'), 'true', 'ARIA debe indicar tema oscuro activo');
+                    await page.waitForTimeout(1100); // Esperar el barrido visual antes de medir contraste.
                     accessibility = await new AxeBuilder({ page }).withTags(wcagTags).analyze();
                     assert.equal(accessibility.violations.length, 0,
                       `Inicio en tema oscuro a ${width}px: ${accessibility.violations.map(v => `${v.id}: ${v.nodes.map(n => `${n.target.join(', ')} => ${n.failureSummary}`).join(' | ')}`).join('\n')}`);
