@@ -121,7 +121,12 @@ jobs:
             } finally {
               await browser.close();
             }
-          })().catch((error) => { console.error(error); process.exit(1); });
+          })().catch((error) => {
+            console.error(error.stack || error);
+            const message = String(error.message || error).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A');
+            console.log(`::error title=Prueba de navegador::${message}`);
+            process.exit(1);
+          });
           NODE
 
       - name: Preparar archivos estÃ¡ticos para Pages
