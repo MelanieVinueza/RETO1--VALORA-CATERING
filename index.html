@@ -355,16 +355,16 @@
             <form id="datos-pedido" class="datos-pedido" aria-labelledby="titulo-datos-pedido" aria-describedby="ayuda-pedido">
               <div><p class="etiqueta">LOS ÚLTIMOS DETALLES</p><h3 id="titulo-datos-pedido">¿Cuándo y para quién?</h3><p id="ayuda-pedido">Completa los campos obligatorios (*) con los datos de contacto y de tu evento.</p></div>
               <fieldset><legend class="sr-only">Contacto y datos del evento</legend><div class="campos-pedido">
-                <div class="campo"><label for="pedido-nombre">Nombre y apellido *</label><input id="pedido-nombre" name="nombre" autocomplete="name" required minlength="3" maxlength="80" aria-describedby="error-pedido-nombre"><p id="error-pedido-nombre" class="mensaje-error" hidden></p></div>
+                <div class="campo"><label for="pedido-nombre">Nombre y apellido *</label><input type="text" id="pedido-nombre" name="nombre" autocomplete="name" required minlength="3" maxlength="80" aria-describedby="error-pedido-nombre"><p id="error-pedido-nombre" class="mensaje-error" hidden></p></div>
                 <div class="campo"><label for="pedido-correo">Correo electrónico *</label><input id="pedido-correo" name="correo" type="email" autocomplete="email" required maxlength="120" aria-describedby="error-pedido-correo"><p id="error-pedido-correo" class="mensaje-error" hidden></p></div>
                 <div class="campo"><label for="pedido-telefono">Teléfono *</label><input id="pedido-telefono" name="telefono" type="tel" autocomplete="tel" required maxlength="30" pattern="\+?[0-9\s()\-]{9,30}" placeholder="Ej. +593 99 588 3856" aria-describedby="error-pedido-telefono"><p id="error-pedido-telefono" class="mensaje-error" hidden></p></div>
                 <div class="campo"><label for="pedido-fecha">Fecha del evento *</label><input id="pedido-fecha" name="fecha" type="date" required aria-describedby="error-pedido-fecha"><p id="error-pedido-fecha" class="mensaje-error" hidden></p></div>
                 <div class="campo"><label for="pedido-hora">Hora del evento *</label><input id="pedido-hora" name="hora" type="time" required aria-describedby="error-pedido-hora"><p id="error-pedido-hora" class="mensaje-error" hidden></p></div>
                 <div class="campo"><label for="pedido-entrega">¿Cómo lo recibes? *</label><select id="pedido-entrega" name="entrega" required aria-describedby="ayuda-entrega error-pedido-entrega"><option value="retiro">Retiro coordinado · sin cargo</option><option value="domicilio">Entrega en Quito · $8,00</option></select><p id="ayuda-entrega" class="ayuda">Elige retiro o entrega a domicilio. Recordaremos esta preferencia para tu próxima visita.</p><p id="error-pedido-entrega" class="mensaje-error" hidden></p></div>
-                <div class="campo campo-ancho" id="campo-direccion" hidden><label for="pedido-direccion">Dirección del evento *</label><input id="pedido-direccion" name="direccion" autocomplete="address-line1" minlength="8" maxlength="180" aria-describedby="error-pedido-direccion"><p id="error-pedido-direccion" class="mensaje-error" hidden></p></div>
+                <div class="campo campo-ancho" id="campo-direccion" hidden><label for="pedido-direccion">Dirección del evento *</label><input type="text" id="pedido-direccion" name="direccion" autocomplete="address-line1" minlength="8" maxlength="180" aria-describedby="error-pedido-direccion"><p id="error-pedido-direccion" class="mensaje-error" hidden></p></div>
                 <div class="campo campo-ancho"><label for="pedido-notas">Indicaciones del evento <span>(opcional)</span></label><textarea id="pedido-notas" name="notas" rows="3" maxlength="300" placeholder="Nombre de la empresa, acceso al lugar u otros detalles de coordinación." aria-describedby="error-pedido-notas"></textarea><p id="error-pedido-notas" class="mensaje-error" hidden></p></div>
               </div></fieldset>
-              <div class="borrador-panel"><label class="opcion-borrador" for="recordar-pedido"><input type="checkbox" id="recordar-pedido" aria-describedby="ayuda-recordar-pedido"><span>Guardar los datos de este evento en esta pestaña</span></label><p id="ayuda-recordar-pedido" class="ayuda">Opcional. Recupera el formulario al recargar. Puedes borrar el borrador sin perder lo que estás editando.</p><button type="button" class="enlace-flecha" id="borrar-pedido" disabled>Borrar datos guardados del evento</button><p id="estado-borrador-pedido" class="ayuda" role="status" aria-atomic="true"></p></div>
+              <div class="borrador-panel"><label class="opcion-borrador"><input type="checkbox" id="recordar-pedido" aria-describedby="ayuda-recordar-pedido"><span>Guardar los datos de este evento en esta pestaña</span></label><p id="ayuda-recordar-pedido" class="ayuda">Opcional. Recupera el formulario al recargar. Puedes borrar el borrador sin perder lo que estás editando.</p><button type="button" class="enlace-flecha" id="borrar-pedido" disabled>Borrar datos guardados del evento</button><p id="estado-borrador-pedido" class="ayuda" role="status" aria-atomic="true"></p></div>
               <p id="errores-pedido" class="resumen-errores" role="alert" hidden></p>
               <p id="estado-validacion-pedido" class="sr-only" role="status" aria-atomic="true"></p>
               <div class="acciones-tienda"><button type="submit" class="boton boton-morado" id="finalizar-compra">Finalizar compra <span aria-hidden="true">→</span></button><p class="ayuda"><a href="privacidad.html">Información de privacidad</a>.</p></div>
@@ -481,10 +481,9 @@
               Descubre qué podemos incluir en tu propuesta
               <span aria-hidden="true">+</span>
             </summary>
-            <div
+            <section
               class="contenedor-tabla"
               tabindex="0"
-              role="region"
               aria-label="Alcance de los servicios de Válora"
             >
               <table>
@@ -529,7 +528,7 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </section>
           </details>
         </div>
       </section>
@@ -644,7 +643,7 @@
                 ><span class="contacto-icono"
                   ><svg class="icono" aria-hidden="true">
                     <use href="#i-phone" /></svg></span
-                ><span><small>CONVERSEMOS</small>+593 99 588 3856</span></a
+                ><span><small>CONVERSEMOS</small>+593&nbsp;99&nbsp;588&nbsp;3856</span></a
               ><a href="mailto:valoragrup@gmail.com"
                 ><span class="contacto-icono"
                   ><svg class="icono" aria-hidden="true">
@@ -679,7 +678,7 @@
                 <div class="row g-3">
                   <div class="campo col-md-6">
                     <label for="nombre">Tu nombre *</label
-                    ><input
+                    ><input type="text"
                       id="nombre"
                       name="nombre"
                       autocomplete="name"
@@ -692,7 +691,7 @@
                   </div>
                   <div class="campo col-md-6">
                     <label for="empresa">Empresa *</label
-                    ><input
+                    ><input type="text"
                       id="empresa"
                       name="empresa"
                       autocomplete="organization"
@@ -802,7 +801,7 @@
                 </div>
               </fieldset>
               <div class="borrador-panel solo-js">
-                <label class="opcion-borrador" for="recordar-borrador">
+                <label class="opcion-borrador">
                   <input type="checkbox" id="recordar-borrador" aria-describedby="ayuda-borrador">
                   <span>Recordar mis datos en esta pestaña</span>
                 </label>

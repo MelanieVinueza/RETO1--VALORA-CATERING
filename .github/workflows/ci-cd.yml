@@ -17,7 +17,7 @@ concurrency:
 jobs:
   quality:
     name: Calidad, accesibilidad y responsive
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Descargar el repositorio
         uses: actions/checkout@v7
@@ -36,7 +36,7 @@ jobs:
       - name: Instalar Chromium para pruebas de navegador
         run: "$RUNNER_TEMP/valora-ci/node_modules/.bin/playwright install --with-deps chromium"
 
-      - name: Probar semántica, WCAG AA, ARIA, enlaces y diseño responsive
+      - name: Probar semÃ¡ntica, WCAG AA, ARIA, enlaces y diseÃ±o responsive
         env:
           TEST_TOOLS: ${{ runner.temp }}/valora-ci/node_modules
         run: |
@@ -80,9 +80,9 @@ jobs:
                       rel: anchor.rel,
                     })),
                   }));
-                  assert.match(semantics.language, /^es(?:-|$)/, `${route}: debe declarar idioma español`);
-                  assert.equal(semantics.mainCount, 1, `${route}: debe tener una región principal`);
-                  assert.equal(semantics.h1Count, 1, `${route}: debe tener un título principal`);
+                  assert.match(semantics.language, /^es(?:-|$)/, `${route}: debe declarar idioma espaÃ±ol`);
+                  assert.equal(semantics.mainCount, 1, `${route}: debe tener una regiÃ³n principal`);
+                  assert.equal(semantics.h1Count, 1, `${route}: debe tener un tÃ­tulo principal`);
                   assert.ok(semantics.scrollWidth <= semantics.clientWidth,
                     `${route} a ${width}px: hay desbordamiento horizontal (${semantics.scrollWidth}px)`);
 
@@ -93,18 +93,18 @@ jobs:
                     if (link.target === '_blank') {
                       const rel = link.rel.toLowerCase().split(/\s+/);
                       assert.ok(rel.includes('noopener') || rel.includes('noreferrer'),
-                        `El enlace externo ${url.href} debe aislar la pestaña nueva con rel="noopener"`);
+                        `El enlace externo ${url.href} debe aislar la pestaÃ±a nueva con rel="noopener"`);
                     }
                     if (/(^|\.)youtube\.com$|(^|\.)youtube-nocookie\.com$|(^|\.)youtu\.be$/i.test(url.hostname)) youtubeCount++;
                   }
 
                   let accessibility = await new AxeBuilder({ page }).withTags(wcagTags).analyze();
                   assert.equal(accessibility.violations.length, 0,
-                    `${route} ${width}px: axe detectó problemas WCAG AA:\n${accessibility.violations.map(v => `${v.id}: ${v.nodes.map(n => n.target.join(',')).join('; ')}`).join('\n')}`);
+                    `${route} ${width}px: axe detectÃ³ problemas WCAG AA:\n${accessibility.violations.map(v => `${v.id}: ${v.nodes.map(n => n.target.join(',')).join('; ')}`).join('\n')}`);
 
                   if (route === '/') {
                     const toggle = page.locator('#tema-toggle');
-                    assert.equal(await toggle.count(), 1, 'La página principal debe exponer el control de tema');
+                    assert.equal(await toggle.count(), 1, 'La pÃ¡gina principal debe exponer el control de tema');
                     const initialState = await toggle.getAttribute('aria-pressed');
                     if (initialState !== 'true') await toggle.click();
                     assert.equal(await toggle.getAttribute('aria-pressed'), 'true', 'ARIA debe indicar tema oscuro activo');
@@ -115,16 +115,16 @@ jobs:
                   await page.close();
                 }
               }
-              console.log(`Responsive y WCAG 2.1 A/AA verificados en ${routes.length} páginas, cinco anchos y los dos temas de la página principal.`);
-              console.log(youtubeCount ? `Enlaces de YouTube seguros encontrados: ${youtubeCount}.` : 'No hay enlaces externos de YouTube en las páginas revisadas.');
-              console.log('Todos los enlaces externos usan HTTPS y los que abren pestaña nueva están protegidos.');
+              console.log(`Responsive y WCAG 2.1 A/AA verificados en ${routes.length} pÃ¡ginas, cinco anchos y los dos temas de la pÃ¡gina principal.`);
+              console.log(youtubeCount ? `Enlaces de YouTube seguros encontrados: ${youtubeCount}.` : 'No hay enlaces externos de YouTube en las pÃ¡ginas revisadas.');
+              console.log('Todos los enlaces externos usan HTTPS y los que abren pestaÃ±a nueva estÃ¡n protegidos.');
             } finally {
               await browser.close();
             }
           })().catch((error) => { console.error(error); process.exit(1); });
           NODE
 
-      - name: Preparar archivos estáticos para Pages
+      - name: Preparar archivos estÃ¡ticos para Pages
         run: |
           mkdir -p _site
           cp index.html privacidad.html condiciones.html _site/
@@ -139,7 +139,7 @@ jobs:
     name: Publicar en GitHub Pages
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     needs: quality
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       pages: write
       id-token: write
