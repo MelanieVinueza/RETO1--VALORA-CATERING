@@ -1,0 +1,2 @@
+/*! tailwindcss v4.3.3 | MIT License | https://tailwindcss.com */
+@layer theme{:root,:host{--tw-spacing:.25rem}}@layer utilities{.tw\:flex{display:flex}.tw\:flex-wrap{flex-wrap:wrap}.tw\:items-center{align-items:center}.tw\:justify-between{justify-content:space-between}.tw\:gap-3{gap:calc(var(--tw-spacing) * 3)}}

@@ -1,0 +1,176 @@
+/* Hoja específica para impresión: teoría @media y atributo media del enlace. */
+@page {
+  margin: 1.5cm;
+}
+:root {
+  --papel: #fff !important;
+  --fondo: #f5f5f5 !important;
+  --fondo-calido: #fff !important;
+  --texto: #111 !important;
+  --titulo: #111 !important;
+  --borde: #aaa !important;
+  --campo: #fff !important;
+  --suave: #333 !important;
+  color-scheme: light !important;
+}
+body {
+  background: #fff !important;
+  color: #111 !important;
+  font-size: 10pt;
+}
+.topbar,
+.nav-acciones,
+.navegacion-principal,
+.hero-acciones,
+.filtros,
+.js .filtros,
+.hero-visual,
+.nosotros-visual,
+.paso-numero,
+.skip-link,
+dialog,
+.pie-cta,
+.nota-privacidad,
+.borrador-panel,
+#estado-validacion,
+.acciones-solicitud,
+#editar-solicitud,
+#enviar-whatsapp,
+#enviar-correo {
+  display: none !important;
+}
+.configurar-paquete,
+.acciones-tienda,
+.boton-cantidad,
+#datos-pedido,
+#vaciar-carrito,
+#confirmar-vaciado,
+#estado-validacion-pedido,
+#reintentar-productos {
+  display: none !important;
+}
+.carrito-distribucion { display: block; }
+.catalogo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.tarjeta-paquete, .linea-carrito { break-inside: avoid; }
+.hero::before,
+.hero-visual::after,
+.contacto::before,
+.formulario-panel::before,
+:root.cambio-tema::after {
+  display: none !important;
+}
+.cabecera {
+  position: static;
+  border-bottom: 1px solid #888;
+  background: #fff !important;
+  box-shadow: none !important;
+}
+.contenedor {
+  width: 100%;
+  max-width: none;
+}
+.seccion {
+  padding: 1.5rem 0;
+}
+.hero-grid,
+.nosotros-grid,
+.contacto-grid,
+.preguntas-grid {
+  display: block;
+  min-height: 0;
+  padding: 1rem 0;
+}
+.hero-texto {
+  animation: none;
+}
+.hero h1 {
+  font-size: 30pt;
+  max-width: none;
+}
+.hero-nota {
+  margin-top: 1rem;
+}
+h1,
+h2,
+h3,
+em,
+.etiqueta,
+.contacto h2,
+.contacto h2 em,
+.info-contacto a,
+.datos-contacto p,
+.datos-contacto small,
+.contacto-persona strong,
+.contacto-persona small,
+.contacto-persona > span {
+  color: #111 !important;
+}
+h2 {
+  font-size: 20pt;
+}
+h3 {
+  font-size: 12pt;
+}
+p {
+  orphans: 3;
+  widows: 3;
+}
+.hero,
+.servicios,
+.nosotros,
+.beneficios,
+.contacto,
+.proceso,
+.preguntas,
+.pie-pagina {
+  background: #fff !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+.grid-servicios {
+  grid-template-columns: repeat(2, 1fr);
+}
+.servicio-visual {
+  height: auto;
+  background: #eee !important;
+  color: #111 !important;
+  padding: 0.5rem;
+}
+.servicio-visual > svg,
+.servicio-chip {
+  display: none;
+}
+.tarjeta-servicio,
+.pasos li,
+.formulario-panel {
+  break-inside: avoid;
+  box-shadow: none;
+}
+.formulario-panel {
+  padding: 1rem 0;
+}
+.formulario-cotizacion {
+  display: none;
+}
+.solicitud-preparada pre {
+  max-height: none;
+  overflow: visible;
+}
+.franja-confianza {
+  background: #eee !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+.franja-confianza .icono {
+  color: #111 !important;
+}
+.pie-grid {
+  display: none;
+}
+.pie-legal {
+  color: #111;
+  border-top: 1px solid #888;
+}
+.pie-legal > div {
+  display: none !important;
+}

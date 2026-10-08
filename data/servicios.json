@@ -1,0 +1,65 @@
+{
+  "version": 3,
+  "servicios": {
+    "buffet-empresarial": {
+      "categoria": "diario",
+      "etiqueta": "01 / ALIMENTACIÓN",
+      "frase": "Para tu día a día",
+      "icono": "i-plate",
+      "estilo": "visual-azul",
+      "nombre": "Alimentación para equipos",
+      "resumen": "Una pausa que nutre. Menús variados y balanceados para acompañar la jornada de tu equipo.",
+      "descripcion": "Una alimentación que acompaña el ritmo de tu empresa. Diseñamos una propuesta de menús para que tu equipo disfrute cada pausa.",
+      "incluye": [
+        "Planificación de menús diarios o semanales.",
+        "Coordinación de horarios y número de comensales.",
+        "Revisión de preferencias y restricciones alimentarias."
+      ]
+    },
+    "eventos-corporativos": {
+      "categoria": "eventos",
+      "etiqueta": "02 / EVENTOS",
+      "frase": "Momentos para conectar",
+      "icono": "i-cup",
+      "estilo": "visual-morado",
+      "nombre": "Catering para eventos y reuniones",
+      "resumen": "Reuniones, celebraciones y encuentros con buena comida y una presentación que se recuerda.",
+      "descripcion": "Creamos una propuesta gastronómica para tus reuniones, capacitaciones, lanzamientos y celebraciones corporativas.",
+      "incluye": [
+        "Opciones de coffee break y catering para eventos.",
+        "Presentación adaptada al formato de tu encuentro.",
+        "Coordinación de ubicación, fecha y logística."
+      ]
+    },
+    "gestion-nutricional": {
+      "categoria": "bienestar",
+      "etiqueta": "03 / BIENESTAR",
+      "frase": "Cuidar también es alimentar",
+      "icono": "i-leaf",
+      "estilo": "visual-dorado",
+      "nombre": "Asesoría nutricional para equipos",
+      "resumen": "Planificación de menús y acompañamiento nutricional para impulsar mejores hábitos en tu empresa.",
+      "descripcion": "El bienestar del equipo también se construye en la mesa. Consulta por la planificación y el acompañamiento nutricional para tu organización.",
+      "incluye": [
+        "Diseño de menús según las necesidades del equipo.",
+        "Opciones de capacitación con nutricionista.",
+        "Revisión de objetivos y alcance del acompañamiento."
+      ]
+    },
+    "provision-materias-primas": {
+      "categoria": "abastecimiento",
+      "etiqueta": "04 / ABASTECIMIENTO",
+      "frase": "El inicio de una buena cocina",
+      "icono": "i-box",
+      "estilo": "visual-suave",
+      "nombre": "Abastecimiento para cocinas",
+      "resumen": "Los insumos que tu operación necesita, con selección cuidadosa y una logística coordinada contigo.",
+      "descripcion": "Acompañamos el abastecimiento de tu operación de alimentos con selección de insumos y entregas coordinadas.",
+      "incluye": [
+        "Selección de materias primas según tu operación.",
+        "Planificación de cantidades y frecuencia de entrega.",
+        "Coordinación de requisitos de calidad y recepción."
+      ]
+    }
+  }
+}

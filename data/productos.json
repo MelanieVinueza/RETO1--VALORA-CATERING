@@ -1,0 +1,199 @@
+{
+  "version": 1,
+  "moneda": "USD",
+  "demostracion": true,
+  "productos": [
+    {
+      "id": "buffet-empresarial",
+      "nombre": "Buffet empresarial",
+      "descripcion": "Arma un almuerzo para tu equipo: elige el menú, el número de personas y los complementos. Combina un plato principal, dos acompañamientos y una bebida.",
+      "imagen": "assets/paquetes/buffet-empresarial.jpg",
+      "imagenAlt": "Buffet con pollo asado, arroz, vegetales y ensalada en fuentes de cerámica",
+      "precioCentavos": 1250,
+      "minPersonas": 10,
+      "maxPersonas": 200,
+      "incluye": ["Una porción del menú elegido por persona", "Dos acompañamientos por persona", "Bebida de la casa por persona"],
+      "menus": [
+        { "id": "pollo", "nombre": "Pollo con arroz y vegetales", "extraCentavos": 0 },
+        { "id": "vegetariano", "nombre": "Vegetales con quinoa y legumbres", "extraCentavos": 0 },
+        { "id": "res", "nombre": "Res con papas y ensalada", "extraCentavos": 250 },
+        { "id": "cerdo-horno", "nombre": "Cerdo al horno con puré y ensalada de col", "extraCentavos": 150 },
+        { "id": "pescado-limon", "nombre": "Pescado al limón con arroz y vegetales salteados", "extraCentavos": 300 },
+        { "id": "pollo-champinones", "nombre": "Pollo con champiñones, papas asadas y ensalada", "extraCentavos": 100 },
+        { "id": "lasana-carne", "nombre": "Lasaña de carne con ensalada verde y pan al ajo", "extraCentavos": 200 },
+        { "id": "berenjena-horno", "nombre": "Berenjena al horno con garbanzos, arroz y ensalada", "extraCentavos": 50 }
+      ],
+      "extras": [
+        { "id": "postre", "nombre": "Postre individual", "precioCentavos": 200 },
+        { "id": "entrada", "nombre": "Entrada del día", "precioCentavos": 150 },
+        { "id": "crema-zapallo", "nombre": "Crema de zapallo", "precioCentavos": 175 },
+        { "id": "ensalada-caprese", "nombre": "Ensalada de tomate, queso y albahaca", "precioCentavos": 250 },
+        { "id": "pan-artesanal", "nombre": "Pan artesanal con mantequilla", "precioCentavos": 100 },
+        { "id": "limonada", "nombre": "Vaso de limonada con hierbabuena", "precioCentavos": 150 },
+        { "id": "fruta-fresca", "nombre": "Porción de fruta fresca", "precioCentavos": 150 },
+        { "id": "tarta-limon", "nombre": "Tarta individual de limón", "precioCentavos": 250 }
+      ],
+      "etiqueta": "Por persona"
+    },
+    {
+      "id": "coffee-break",
+      "nombre": "Coffee break para reuniones",
+      "descripcion": "Organiza la pausa de tu reunión con café, té y bocados dulces o salados. Escoge entre croissants, sándwiches, empanadas y repostería, y añade los complementos que prefieras.",
+      "imagen": "assets/paquetes/coffee-break.jpg",
+      "imagenAlt": "Tazas de café, croissants y pequeños sándwiches sobre una mesa para reuniones",
+      "precioCentavos": 650,
+      "minPersonas": 10,
+      "maxPersonas": 200,
+      "incluye": ["Una bebida caliente por persona", "Dos bocados por persona", "Agua para acompañar"],
+      "menus": [
+        { "id": "clasico", "nombre": "Café o té con bocados salados", "extraCentavos": 0 },
+        { "id": "dulce", "nombre": "Café o té con bocados dulces", "extraCentavos": 0 },
+        { "id": "mixto", "nombre": "Opción mixta con un bocado adicional", "extraCentavos": 100 },
+        { "id": "croissants", "nombre": "Café o té con un mini croissant y una galleta de avena", "extraCentavos": 75 },
+        { "id": "sandwiches", "nombre": "Café o té con dos mini sándwiches de pollo", "extraCentavos": 125 },
+        { "id": "empanadas", "nombre": "Café o té con una mini empanada de queso y otra de carne", "extraCentavos": 100 },
+        { "id": "brownie", "nombre": "Café o té con un brownie y una mini tarta de fruta", "extraCentavos": 150 },
+        { "id": "bagel", "nombre": "Café o té con un mini bagel de queso y una galleta de cacao", "extraCentavos": 175 }
+      ],
+      "extras": [
+        { "id": "fruta", "nombre": "Vaso de fruta", "precioCentavos": 150 },
+        { "id": "jugo", "nombre": "Jugo individual", "precioCentavos": 125 },
+        { "id": "yogur-granola", "nombre": "Vaso de yogur con granola", "precioCentavos": 175 },
+        { "id": "mini-muffin", "nombre": "Mini muffin de arándanos", "precioCentavos": 100 },
+        { "id": "galleta-avena", "nombre": "Galleta de avena y pasas", "precioCentavos": 75 },
+        { "id": "brocheta-caprese", "nombre": "Brocheta de tomate y queso", "precioCentavos": 125 },
+        { "id": "mini-quiche", "nombre": "Mini quiche de espinaca", "precioCentavos": 150 },
+        { "id": "chocolate-caliente", "nombre": "Taza de chocolate caliente", "precioCentavos": 175 }
+      ],
+      "etiqueta": "Por persona"
+    },
+    {
+      "id": "bienestar",
+      "nombre": "Menú bienestar",
+      "descripcion": "Configura una propuesta con vegetales, cereales y la opción principal que prefieras. Indica tus necesidades alimentarias para consultarlas con el equipo antes de confirmar el servicio.",
+      "imagen": "assets/paquetes/bienestar.jpg",
+      "imagenAlt": "Bowl de quinoa y garbanzos con aguacate, tomate, pepino y vegetales frescos",
+      "precioCentavos": 1100,
+      "minPersonas": 10,
+      "maxPersonas": 200,
+      "incluye": ["Un plato del menú elegido por persona", "Ensalada o vegetales de acompañamiento", "Agua aromatizada por persona"],
+      "menus": [
+        { "id": "legumbres", "nombre": "Quinoa con legumbres y vegetales", "extraCentavos": 0 },
+        { "id": "pollo", "nombre": "Pollo con arroz integral y vegetales", "extraCentavos": 150 },
+        { "id": "pescado", "nombre": "Pescado con quinoa y vegetales", "extraCentavos": 300 },
+        { "id": "lentejas", "nombre": "Lentejas con arroz integral, zapallo y ensalada", "extraCentavos": 0 },
+        { "id": "pavo", "nombre": "Pavo al horno con camote y ensalada de pepino", "extraCentavos": 250 },
+        { "id": "tofu", "nombre": "Tofu salteado con quinoa, brócoli y zanahoria", "extraCentavos": 150 },
+        { "id": "garbanzos", "nombre": "Bowl de garbanzos, cuscús, aguacate y vegetales", "extraCentavos": 100 },
+        { "id": "tortilla-vegetales", "nombre": "Tortilla de espinaca con papas al horno y ensalada", "extraCentavos": 50 }
+      ],
+      "extras": [
+        { "id": "fruta", "nombre": "Porción de fruta", "precioCentavos": 150 },
+        { "id": "sopa", "nombre": "Sopa de vegetales", "precioCentavos": 200 },
+        { "id": "hummus", "nombre": "Hummus con bastones de zanahoria y pepino", "precioCentavos": 175 },
+        { "id": "ensalada-quinoa", "nombre": "Ensalada pequeña de quinoa y tomate", "precioCentavos": 225 },
+        { "id": "yogur-natural", "nombre": "Yogur natural con semillas", "precioCentavos": 150 },
+        { "id": "pan-integral", "nombre": "Pan integral con aguacate", "precioCentavos": 175 },
+        { "id": "batido-fruta", "nombre": "Vaso de batido de fruta", "precioCentavos": 200 },
+        { "id": "pudin-chia", "nombre": "Pudín de chía con mango", "precioCentavos": 225 }
+      ],
+      "etiqueta": "Por persona"
+    },
+    {
+      "id": "parrillada",
+      "nombre": "Parrillada para compartir",
+      "descripcion": "Reúne a tus invitados alrededor de una parrillada con carnes, vegetales y acompañamientos. Elige el plato de cada persona y completa el servicio con entradas, salsas o postres.",
+      "imagen": "assets/paquetes/parrillada.jpg",
+      "imagenAlt": "Carnes y vegetales a la parrilla con papas y acompañamientos sobre una tabla",
+      "precioCentavos": 1650,
+      "minPersonas": 10,
+      "maxPersonas": 200,
+      "incluye": ["Una porción del menú elegido por persona", "Acompañamientos indicados en el plato", "Bebida de la casa por persona"],
+      "menus": [
+        { "id": "pollo-parrilla", "nombre": "Pollo a la parrilla con papas rústicas y ensalada", "extraCentavos": 0 },
+        { "id": "res-parrilla", "nombre": "Res a la parrilla con choclo y papas asadas", "extraCentavos": 250 },
+        { "id": "costillas", "nombre": "Costillas de cerdo con yuca y ensalada de col", "extraCentavos": 300 },
+        { "id": "mixta", "nombre": "Parrillada de res, pollo y chorizo con papas y ensalada", "extraCentavos": 400 },
+        { "id": "brochetas", "nombre": "Brochetas de pollo y vegetales con arroz y ensalada", "extraCentavos": 50 },
+        { "id": "cerdo", "nombre": "Lomo de cerdo con plátano asado y ensalada", "extraCentavos": 150 },
+        { "id": "portobello", "nombre": "Portobellos y vegetales a la parrilla con papas y quinoa", "extraCentavos": 0 },
+        { "id": "pescado-parrilla", "nombre": "Pescado a la parrilla con yuca y ensalada de tomate", "extraCentavos": 350 }
+      ],
+      "extras": [
+        { "id": "chorizo", "nombre": "Chorizo a la parrilla", "precioCentavos": 225 },
+        { "id": "choclo", "nombre": "Choclo asado con queso", "precioCentavos": 175 },
+        { "id": "yuca", "nombre": "Porción de yuca dorada", "precioCentavos": 150 },
+        { "id": "chimichurri", "nombre": "Porción de chimichurri", "precioCentavos": 75 },
+        { "id": "provoleta", "nombre": "Queso a la parrilla con orégano", "precioCentavos": 250 },
+        { "id": "ensalada-col", "nombre": "Ensalada de col y zanahoria", "precioCentavos": 150 },
+        { "id": "papas-crema", "nombre": "Papas asadas con crema y cebollín", "precioCentavos": 200 },
+        { "id": "pina-asada", "nombre": "Piña asada con canela", "precioCentavos": 175 }
+      ],
+      "etiqueta": "Por persona"
+    },
+    {
+      "id": "cocina-ecuatoriana",
+      "nombre": "Sabores del Ecuador",
+      "descripcion": "Comparte platos de la cocina ecuatoriana en tu evento. Encuentra opciones con cerdo, pollo, pescado o vegetales, acompañadas de arroz, papas, mote o plátano según el menú.",
+      "imagen": "assets/paquetes/cocina-ecuatoriana.jpg",
+      "imagenAlt": "Plato de comida ecuatoriana con cerdo horneado, llapingachos, mote y ensalada",
+      "precioCentavos": 1300,
+      "minPersonas": 10,
+      "maxPersonas": 200,
+      "incluye": ["Una porción del plato ecuatoriano elegido", "Acompañamientos indicados en el menú", "Jugo de fruta por persona"],
+      "menus": [
+        { "id": "seco-pollo", "nombre": "Seco de pollo con arroz, maduro y ensalada", "extraCentavos": 0 },
+        { "id": "hornado", "nombre": "Hornado con mote, llapingacho y ensalada", "extraCentavos": 250 },
+        { "id": "fritada", "nombre": "Fritada con mote, maduro y ensalada", "extraCentavos": 200 },
+        { "id": "seco-res", "nombre": "Seco de res con arroz, papa y aguacate", "extraCentavos": 200 },
+        { "id": "encocado", "nombre": "Encocado de pescado con arroz y patacones", "extraCentavos": 300 },
+        { "id": "guatita", "nombre": "Guatita con arroz y ensalada de tomate", "extraCentavos": 100 },
+        { "id": "llapingachos", "nombre": "Llapingachos con chorizo, huevo, ensalada y salsa de maní", "extraCentavos": 150 },
+        { "id": "menestra-vegetales", "nombre": "Menestra de lentejas con arroz, maduro y vegetales", "extraCentavos": 0 }
+      ],
+      "extras": [
+        { "id": "empanada-viento", "nombre": "Empanada de viento", "precioCentavos": 125 },
+        { "id": "humita", "nombre": "Humita de queso", "precioCentavos": 175 },
+        { "id": "patacones", "nombre": "Porción de patacones", "precioCentavos": 150 },
+        { "id": "mote", "nombre": "Porción de mote con cebolla", "precioCentavos": 100 },
+        { "id": "locro", "nombre": "Taza de locro de papa con queso", "precioCentavos": 225 },
+        { "id": "maduro-queso", "nombre": "Maduro asado con queso", "precioCentavos": 175 },
+        { "id": "higos-queso", "nombre": "Higos con queso", "precioCentavos": 225 },
+        { "id": "espumilla", "nombre": "Vaso de espumilla de guayaba", "precioCentavos": 175 }
+      ],
+      "etiqueta": "Por persona"
+    },
+    {
+      "id": "pastas",
+      "nombre": "Pastas y cocina italiana",
+      "descripcion": "Elige una pasta con su salsa y acompáñala con ensalada y pan. Personaliza tu servicio con antipastos, bebidas y postres para reuniones, celebraciones o almuerzos en equipo.",
+      "imagen": "assets/paquetes/pastas.jpg",
+      "imagenAlt": "Pasta con salsa de tomate, albahaca y queso acompañada de pan y ensalada",
+      "precioCentavos": 1275,
+      "minPersonas": 10,
+      "maxPersonas": 200,
+      "incluye": ["Una porción de la pasta elegida por persona", "Ensalada verde y pan por persona", "Bebida de la casa por persona"],
+      "menus": [
+        { "id": "pomodoro", "nombre": "Espagueti con salsa de tomate y albahaca", "extraCentavos": 0 },
+        { "id": "bolonesa", "nombre": "Espagueti a la boloñesa con carne de res", "extraCentavos": 175 },
+        { "id": "alfredo", "nombre": "Fettuccine Alfredo con pollo y champiñones", "extraCentavos": 225 },
+        { "id": "pesto", "nombre": "Penne al pesto de albahaca con tomates cherry", "extraCentavos": 150 },
+        { "id": "lasana", "nombre": "Lasaña de carne con salsa de tomate y queso", "extraCentavos": 250 },
+        { "id": "ravioles", "nombre": "Ravioles de espinaca y ricota en salsa de tomate", "extraCentavos": 275 },
+        { "id": "primavera", "nombre": "Fusilli con brócoli, calabacín, zanahoria y tomate", "extraCentavos": 75 },
+        { "id": "camaron", "nombre": "Linguine con camarones en salsa de ajo y tomate", "extraCentavos": 400 }
+      ],
+      "extras": [
+        { "id": "bruschetta", "nombre": "Bruschetta de tomate y albahaca", "precioCentavos": 150 },
+        { "id": "antipasto", "nombre": "Antipasto de vegetales asados", "precioCentavos": 225 },
+        { "id": "pan-ajo", "nombre": "Pan al ajo con queso", "precioCentavos": 125 },
+        { "id": "ensalada-rucula", "nombre": "Ensalada de rúcula y parmesano", "precioCentavos": 200 },
+        { "id": "crema-tomate", "nombre": "Taza de crema de tomate", "precioCentavos": 175 },
+        { "id": "tiramisu", "nombre": "Tiramisú individual", "precioCentavos": 300 },
+        { "id": "panna-cotta", "nombre": "Panna cotta con frutos rojos", "precioCentavos": 275 },
+        { "id": "limonada-albahaca", "nombre": "Vaso de limonada con albahaca", "precioCentavos": 150 }
+      ],
+      "etiqueta": "Por persona"
+    }
+  ]
+}

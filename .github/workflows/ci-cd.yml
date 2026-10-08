@@ -1,0 +1,155 @@
+name: CI/CD - Valora Catering
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Calidad, accesibilidad y responsive
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar validadores temporales
+        run: npm install --prefix "$RUNNER_TEMP/valora-ci" --no-save --no-audit --no-fund html-validate@11.16.2 playwright@1.64.0 @axe-core/playwright@4.13.0
+
+      - name: Validar estructura HTML5
+        run: "$RUNNER_TEMP/valora-ci/node_modules/.bin/html-validate index.html privacidad.html condiciones.html"
+
+      - name: Instalar Chromium para pruebas de navegador
+        run: "$RUNNER_TEMP/valora-ci/node_modules/.bin/playwright install --with-deps chromium"
+
+      - name: Probar semántica, WCAG AA, ARIA, enlaces y diseño responsive
+        env:
+          TEST_TOOLS: ${{ runner.temp }}/valora-ci/node_modules
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > "$RUNNER_TEMP/valora-http.log" 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/ > /dev/null; then break; fi
+            sleep 1
+          done
+          node <<'NODE'
+          const assert = require('node:assert/strict');
+          const path = require('node:path');
+          const { chromium } = require(path.join(process.env.TEST_TOOLS, 'playwright'));
+          const axeModule = require(path.join(process.env.TEST_TOOLS, '@axe-core/playwright'));
+          const AxeBuilder = axeModule.default || axeModule;
+          const routes = ['/', '/privacidad.html', '/condiciones.html'];
+          const widths = [320, 375, 768, 1024, 1440];
+          const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
+
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            let youtubeCount = 0;
+            try {
+              for (const route of routes) {
+                for (const width of widths) {
+                  const page = await browser.newPage({ viewport: { width, height: 900 } });
+                  const response = await page.goto(`http://127.0.0.1:4173${route}`, { waitUntil: 'networkidle' });
+                  assert.equal(response.status(), 200, `${route}: debe cargar correctamente`);
+                  await page.evaluate(() => document.fonts.ready.then(() => true));
+
+                  const semantics = await page.evaluate(() => ({
+                    language: document.documentElement.lang,
+                    mainCount: document.querySelectorAll('main').length,
+                    h1Count: document.querySelectorAll('h1').length,
+                    scrollWidth: document.documentElement.scrollWidth,
+                    clientWidth: document.documentElement.clientWidth,
+                    links: [...document.querySelectorAll('a[href]')].map((anchor) => ({
+                      href: anchor.href,
+                      target: anchor.target,
+                      rel: anchor.rel,
+                    })),
+                  }));
+                  assert.match(semantics.language, /^es(?:-|$)/, `${route}: debe declarar idioma español`);
+                  assert.equal(semantics.mainCount, 1, `${route}: debe tener una región principal`);
+                  assert.equal(semantics.h1Count, 1, `${route}: debe tener un título principal`);
+                  assert.ok(semantics.scrollWidth <= semantics.clientWidth,
+                    `${route} a ${width}px: hay desbordamiento horizontal (${semantics.scrollWidth}px)`);
+
+                  for (const link of semantics.links) {
+                    const url = new URL(link.href);
+                    if (url.origin === 'http://127.0.0.1:4173' || !['http:', 'https:'].includes(url.protocol)) continue;
+                    assert.equal(url.protocol, 'https:', `Enlace externo inseguro: ${url.href}`);
+                    if (link.target === '_blank') {
+                      const rel = link.rel.toLowerCase().split(/\s+/);
+                      assert.ok(rel.includes('noopener') || rel.includes('noreferrer'),
+                        `El enlace externo ${url.href} debe aislar la pestaña nueva con rel="noopener"`);
+                    }
+                    if (/(^|\.)youtube\.com$|(^|\.)youtube-nocookie\.com$|(^|\.)youtu\.be$/i.test(url.hostname)) youtubeCount++;
+                  }
+
+                  let accessibility = await new AxeBuilder({ page }).withTags(wcagTags).analyze();
+                  assert.equal(accessibility.violations.length, 0,
+                    `${route} ${width}px: axe detectó problemas WCAG AA:\n${accessibility.violations.map(v => `${v.id}: ${v.nodes.map(n => n.target.join(',')).join('; ')}`).join('\n')}`);
+
+                  if (route === '/') {
+                    const toggle = page.locator('#tema-toggle');
+                    assert.equal(await toggle.count(), 1, 'La página principal debe exponer el control de tema');
+                    const initialState = await toggle.getAttribute('aria-pressed');
+                    if (initialState !== 'true') await toggle.click();
+                    assert.equal(await toggle.getAttribute('aria-pressed'), 'true', 'ARIA debe indicar tema oscuro activo');
+                    accessibility = await new AxeBuilder({ page }).withTags(wcagTags).analyze();
+                    assert.equal(accessibility.violations.length, 0,
+                      `Inicio en tema oscuro a ${width}px: ${accessibility.violations.map(v => v.id).join(', ')}`);
+                  }
+                  await page.close();
+                }
+              }
+              console.log(`Responsive y WCAG 2.1 A/AA verificados en ${routes.length} páginas, cinco anchos y los dos temas de la página principal.`);
+              console.log(youtubeCount ? `Enlaces de YouTube seguros encontrados: ${youtubeCount}.` : 'No hay enlaces externos de YouTube en las páginas revisadas.');
+              console.log('Todos los enlaces externos usan HTTPS y los que abren pestaña nueva están protegidos.');
+            } finally {
+              await browser.close();
+            }
+          })().catch((error) => { console.error(error); process.exit(1); });
+          NODE
+
+      - name: Preparar archivos estáticos para Pages
+        run: |
+          mkdir -p _site
+          cp index.html privacidad.html condiciones.html _site/
+          cp -R assets data js _site/
+
+      - name: Guardar artefacto de GitHub Pages
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    name: Publicar en GitHub Pages
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: quality
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Publicar sitio
+        id: deployment
+        uses: actions/deploy-pages@v4
