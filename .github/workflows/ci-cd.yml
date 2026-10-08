@@ -63,7 +63,8 @@ jobs:
             try {
               for (const route of routes) {
                 for (const width of widths) {
-                  const page = await browser.newPage({ viewport: { width, height: 900 } });
+                  const context = await browser.newContext({ viewport: { width, height: 900 } });
+                  const page = await context.newPage();
                   const response = await page.goto(`http://127.0.0.1:4173${route}`, { waitUntil: 'networkidle' });
                   assert.equal(response.status(), 200, `${route}: debe cargar correctamente`);
                   await page.evaluate(() => document.fonts.ready.then(() => true));
@@ -112,7 +113,7 @@ jobs:
                     assert.equal(accessibility.violations.length, 0,
                       `Inicio en tema oscuro a ${width}px: ${accessibility.violations.map(v => v.id).join(', ')}`);
                   }
-                  await page.close();
+                  await context.close();
                 }
               }
               console.log(`Responsive y WCAG 2.1 A/AA verificados en ${routes.length} pÃ¡ginas, cinco anchos y los dos temas de la pÃ¡gina principal.`);
