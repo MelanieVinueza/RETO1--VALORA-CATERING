@@ -908,7 +908,7 @@
         </nav>
         <nav aria-label="Conversemos">
           <h2>CONVERSEMOS</h2>
-          <a href="tel:+593995883856">+593 99 588 3856</a
+          <a href="tel:+593995883856">+593&nbsp;99&nbsp;588&nbsp;3856</a
           ><a href="mailto:valoragrup@gmail.com">valoragrup@gmail.com</a
           ><span>Quito, Ecuador</span>
         </nav>
@@ -934,12 +934,12 @@
     <template id="plantilla-paquete">
       <article class="tarjeta-paquete">
         <div class="paquete-imagen"><img src="assets/paquetes/buffet-empresarial.jpg" alt="" width="960" height="640" loading="lazy"><span class="paquete-ordinal" aria-hidden="true"></span></div>
-        <div class="paquete-cuerpo"><p class="etiqueta paquete-etiqueta"></p><h3 class="paquete-nombre"></h3><p class="paquete-descripcion"></p><p class="paquete-variedad ayuda"></p><ul class="paquete-incluye"></ul><p class="paquete-precio"><span class="ayuda">Desde</span> <strong></strong> <span class="ayuda">/ persona</span></p><p class="ayuda paquete-minimo"></p><button type="button" class="boton boton-morado configurar-paquete">Personalizar y agregar <span aria-hidden="true">→</span></button></div>
+        <div class="paquete-cuerpo"><p class="etiqueta paquete-etiqueta"></p><h3 class="paquete-nombre">Nombre del paquete</h3><p class="paquete-descripcion"></p><p class="paquete-variedad ayuda"></p><ul class="paquete-incluye"></ul><p class="paquete-precio"><span class="ayuda">Desde</span> <strong></strong> <span class="ayuda">/ persona</span></p><p class="ayuda paquete-minimo"></p><button type="button" class="boton boton-morado configurar-paquete">Personalizar y agregar <span aria-hidden="true">→</span></button></div>
       </article>
     </template>
     <template id="plantilla-linea">
       <article class="linea-carrito">
-        <div class="linea-encabezado"><div><h4 class="linea-nombre"></h4><p class="linea-menu"></p></div><strong class="linea-total"></strong></div>
+        <div class="linea-encabezado"><div><h4 class="linea-nombre">Nombre del paquete</h4><p class="linea-menu"></p></div><strong class="linea-total"></strong></div>
         <p class="linea-extras ayuda"></p><p class="linea-notas ayuda"></p>
         <div class="linea-acciones"><div class="control-personas"><label>Personas</label><div class="cantidad-controles"><button type="button" class="boton-cantidad" data-accion="menos">−</button><input class="cantidad-personas" type="number" step="1" required><button type="button" class="boton-cantidad" data-accion="mas">+</button></div></div><div><p class="ayuda linea-precio-persona"></p><div class="acciones-tienda"><button type="button" class="enlace-flecha" data-accion="editar">Editar paquete</button><button type="button" class="enlace-flecha" data-accion="eliminar">Quitar</button></div></div></div>
         <p class="mensaje-error linea-error" hidden></p>
@@ -947,7 +947,7 @@
     </template>
     <dialog id="configurar-paquete" class="dialogo-paquete" aria-labelledby="titulo-configuracion" aria-describedby="ayuda-configuracion">
       <div class="dialogo-cabecera"><p class="etiqueta">DALE TU TOQUE</p><button type="button" class="boton-icono" id="cerrar-configuracion" aria-label="Cerrar configuración del paquete"><svg class="icono" aria-hidden="true"><use href="#i-close" /></svg></button></div>
-      <h2 id="titulo-configuracion"></h2><p id="ayuda-configuracion">Elige el menú y los complementos para todas las personas de este paquete. Puedes agregar otra configuración si necesitas un menú diferente.</p>
+      <h2 id="titulo-configuracion">Configurar paquete</h2><p id="ayuda-configuracion">Elige el menú y los complementos para todas las personas de este paquete. Puedes agregar otra configuración si necesitas un menú diferente.</p>
       <form id="formulario-paquete" aria-labelledby="titulo-configuracion">
         <div class="campos-configuracion">
           <div class="campo"><label for="paquete-personas">Número de personas *</label><input id="paquete-personas" name="personas" type="number" required min="10" max="200" step="1" value="10" aria-describedby="ayuda-personas error-configuracion"><p id="ayuda-personas" class="ayuda"></p></div>
@@ -972,7 +972,7 @@
           <svg class="icono" aria-hidden="true"><use href="#i-close" /></svg>
         </button>
       </div>
-      <h2 id="dialogo-titulo"></h2>
+      <h2 id="dialogo-titulo">Detalle del servicio</h2>
       <p id="estado-dialogo" class="ayuda" role="status" aria-atomic="true"></p>
       <div id="contenido-dialogo" aria-busy="false">
         <p id="dialogo-descripcion"></p>
