@@ -112,10 +112,10 @@
             <svg class="icono" aria-hidden="true">
               <use href="#i-moon" />
             </svg></button
-            ><a class="boton boton-azul acceso-carrito" href="#carrito" aria-label="Ver carrito, 0 paquetes"
+            ><button class="boton boton-azul acceso-carrito" id="abrir-carrito" type="button" aria-label="Ver carrito, 0 paquetes" aria-haspopup="dialog" aria-controls="carrito" aria-expanded="false"
             ><span class="carrito-texto">Carrito</span><span aria-hidden="true">(<span id="cuenta-carrito">0</span>)</span>
             <svg class="icono" aria-hidden="true">
-              <use href="#i-arrow" /></svg></a
+              <use href="#i-arrow" /></svg></button
           ><button
             class="boton-menu solo-js"
             id="menu-toggle"
@@ -328,11 +328,11 @@
         </div>
       </section>
 
-      <section id="carrito" class="seccion seccion-carrito" aria-labelledby="titulo-carrito">
+      <dialog id="carrito" class="panel-carrito seccion-carrito" aria-labelledby="titulo-carrito" aria-describedby="ayuda-carrito">
         <div class="contenedor">
-          <div class="encabezado-seccion">
-            <div><p class="etiqueta">TU PRÓXIMO ENCUENTRO</p><h2 id="titulo-carrito" tabindex="-1">Tu pedido,<br><em>como lo imaginaste.</em></h2></div>
-            <p>Revisa tus paquetes y cuéntanos cuándo los necesitas para completar tu compra.</p>
+          <div class="carrito-panel-cabecera">
+            <div><p class="etiqueta">TU PRÓXIMO ENCUENTRO</p><h2 id="titulo-carrito" tabindex="-1">Tu pedido,<br><em>como lo imaginaste.</em></h2><p id="ayuda-carrito" class="ayuda">Revisa tus paquetes y completa los datos de tu evento.</p></div>
+            <button type="button" class="boton-icono" id="cerrar-carrito" aria-label="Cerrar carrito"><svg class="icono" aria-hidden="true"><use href="#i-close" /></svg></button>
           </div>
           <p id="estado-carrito" class="estado-tienda" role="status" aria-atomic="true"></p>
           <p id="aviso-almacenamiento" class="aviso-tienda" role="status" aria-atomic="true" hidden></p>
@@ -364,7 +364,7 @@
                 <div class="campo campo-ancho" id="campo-direccion" hidden><label for="pedido-direccion">Dirección del evento *</label><input type="text" id="pedido-direccion" name="direccion" autocomplete="address-line1" minlength="8" maxlength="180" aria-describedby="error-pedido-direccion"><p id="error-pedido-direccion" class="mensaje-error" hidden></p></div>
                 <div class="campo campo-ancho"><label for="pedido-notas">Indicaciones del evento <span>(opcional)</span></label><textarea id="pedido-notas" name="notas" rows="3" maxlength="300" placeholder="Nombre de la empresa, acceso al lugar u otros detalles de coordinación." aria-describedby="error-pedido-notas"></textarea><p id="error-pedido-notas" class="mensaje-error" hidden></p></div>
               </div></fieldset>
-              <div class="borrador-panel"><label class="opcion-borrador"><input type="checkbox" id="recordar-pedido" aria-describedby="ayuda-recordar-pedido"><span>Guardar los datos de este evento en esta pestaña</span></label><p id="ayuda-recordar-pedido" class="ayuda">Opcional. Recupera el formulario al recargar. Puedes borrar el borrador sin perder lo que estás editando.</p><button type="button" class="enlace-flecha" id="borrar-pedido" disabled>Borrar datos guardados del evento</button><p id="estado-borrador-pedido" class="ayuda" role="status" aria-atomic="true"></p></div>
+              <div class="borrador-panel"><label class="opcion-borrador"><input type="checkbox" id="recordar-pedido" aria-describedby="ayuda-recordar-pedido"><span>Guardar los datos de este evento en esta pestaña</span></label><p id="ayuda-recordar-pedido" class="ayuda">Se guarda automáticamente y se recupera al recargar. Desmarca para dejar de guardarlo o borra el borrador cuando quieras.</p><button type="button" class="enlace-flecha" id="borrar-pedido" disabled>Borrar datos guardados del evento</button><p id="estado-borrador-pedido" class="ayuda" role="status" aria-atomic="true"></p></div>
               <p id="errores-pedido" class="resumen-errores" role="alert" hidden></p>
               <p id="estado-validacion-pedido" class="sr-only" role="status" aria-atomic="true"></p>
               <div class="acciones-tienda"><button type="submit" class="boton boton-morado" id="finalizar-compra">Finalizar compra <span aria-hidden="true">→</span></button><p class="ayuda"><a href="privacidad.html">Información de privacidad</a>.</p></div>
@@ -375,7 +375,7 @@
             <div class="acciones-tienda"><button id="seguir-comprando" class="boton boton-morado" type="button">Seguir comprando <span aria-hidden="true">→</span></button></div>
           </section>
         </div>
-      </section>
+      </dialog>
 
       <section
         id="nosotros"
@@ -803,9 +803,9 @@
               <div class="borrador-panel solo-js">
                 <label class="opcion-borrador">
                   <input type="checkbox" id="recordar-borrador" aria-describedby="ayuda-borrador">
-                  <span>Recordar mis datos en esta pestaña</span>
+                  <span>Guardar mis datos de propuesta en esta pestaña</span>
                 </label>
-                <p class="ayuda" id="ayuda-borrador">Opcional: recupera lo escrito al recargar. Puedes borrar el borrador cuando quieras.</p>
+                <p class="ayuda" id="ayuda-borrador">Se guarda automáticamente mientras completas el formulario y se recupera al recargar. Desmarca para dejar de guardarlo o borra el borrador cuando quieras.</p>
                 <button type="button" class="enlace-flecha" id="borrar-borrador" disabled>Borrar borrador guardado</button>
                 <p class="ayuda" id="estado-borrador" role="status" aria-atomic="true"></p>
               </div>

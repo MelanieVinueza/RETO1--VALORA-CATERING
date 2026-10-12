@@ -85,6 +85,7 @@
 html {
   scroll-padding-top: calc(var(--altura-cabecera, 6rem) + 1rem);
   -webkit-text-size-adjust: 100%;
+  overflow-anchor: none;
 }
 body {
   margin: 0;

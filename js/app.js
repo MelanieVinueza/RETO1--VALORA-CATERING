@@ -10,6 +10,68 @@ import { cargarCatalogo } from "./catalogo.js";
 import { inicializarBorrador } from "./borrador.js";
 import { mostrarServicios } from "./view.js";
 
+const CLAVE_POSICION_SCROLL = "valora-scroll-position-v1";
+
+function prepararRestauracionScroll() {
+  let posicion = null;
+  let ultimaPosicion = { x: window.scrollX, y: window.scrollY };
+  let restauracionPendiente = false;
+  try {
+    const navegacion = performance.getEntriesByType("navigation")[0];
+    const guardado = sessionStorage.getItem(CLAVE_POSICION_SCROLL);
+    sessionStorage.removeItem(CLAVE_POSICION_SCROLL);
+    if (navegacion?.type === "reload" && guardado) {
+      const datos = JSON.parse(guardado);
+      if (datos.url === location.href && Number.isFinite(datos.x) && Number.isFinite(datos.y) && datos.x >= 0 && datos.y >= 0) {
+        posicion = { x: datos.x, y: datos.y };
+        ultimaPosicion = posicion;
+        restauracionPendiente = true;
+        history.scrollRestoration = "manual";
+      }
+    }
+  } catch {
+    /* La restauración del navegador sigue disponible si sessionStorage está bloqueado. */
+  }
+
+  function guardarPosicionScroll() {
+    if (!restauracionPendiente) {
+      ultimaPosicion = { x: window.scrollX, y: window.scrollY };
+    }
+    try {
+      sessionStorage.setItem(CLAVE_POSICION_SCROLL, JSON.stringify({
+        url: location.href,
+        ...ultimaPosicion,
+      }));
+    } catch {
+      /* La navegación puede continuar aunque el navegador no permita guardar la posición. */
+    }
+  }
+  window.addEventListener("scroll", guardarPosicionScroll, { passive: true });
+  window.addEventListener("pagehide", guardarPosicionScroll);
+
+  function aplicarPosicionScroll(restaurarHistorial = false) {
+    if (restaurarHistorial) history.scrollRestoration = "auto";
+    const raiz = document.documentElement;
+    const comportamientoAnterior = raiz.style.scrollBehavior;
+    const maxX = Math.max(0, raiz.scrollWidth - window.innerWidth);
+    const maxY = Math.max(0, raiz.scrollHeight - window.innerHeight);
+    raiz.style.scrollBehavior = "auto";
+    window.scrollTo(Math.min(posicion.x, maxX), Math.min(posicion.y, maxY));
+    raiz.style.scrollBehavior = comportamientoAnterior;
+    if (restaurarHistorial) {
+      restauracionPendiente = false;
+      ultimaPosicion = { x: window.scrollX, y: window.scrollY };
+    }
+  }
+
+  if (posicion) aplicarPosicionScroll();
+  return () => {
+    if (posicion) window.setTimeout(() => aplicarPosicionScroll(true), 100);
+  };
+}
+
+const restaurarScrollTrasContenido = prepararRestauracionScroll();
+
 function inicializarTema() {
   const root = document.documentElement;
   const themeButton = document.getElementById("tema-toggle");
@@ -180,6 +242,7 @@ function inicializarAnclas() {
     .querySelectorAll('a[href^="#"]:not(.detalle-servicio):not(#cotizar-servicio)')
     .forEach((link) => {
       link.addEventListener("click", () => {
+        history.scrollRestoration = "auto";
         const target = document.getElementById(link.hash.slice(1));
         if (!target) return;
         if (!target.hasAttribute("tabindex"))
@@ -446,7 +509,9 @@ function inicializarFormulario() {
     contadorMensaje.textContent =
       `${messageField.value.length} / ${messageField.maxLength}`;
   }
-  inicializarBorrador(form, fields, actualizarContadorMensaje);
+  inicializarBorrador(form, fields, actualizarContadorMensaje, {
+    recordarPorDefecto: true,
+  });
   actualizarContadorMensaje();
 
   form.addEventListener("submit", (event) => {
@@ -534,13 +599,16 @@ inicializarNavegacion();
 inicializarAnclas();
 inicializarFiltros();
 inicializarDialogo();
-void inicializarServicios();
+const cargasDeContenido = [inicializarServicios()];
 inicializarFormulario();
 document.documentElement.classList.add("js");
 // La tienda es independiente: un fallo de su módulo conserva el sitio y sus contactos.
 if (document.getElementById("catalogo-productos")) {
-  void import("./tienda.js").then(({ inicializarTienda }) => inicializarTienda()).catch(() => {
-    document.getElementById("estado-catalogo").textContent =
-      "No pudimos iniciar los paquetes. Recarga la página o utiliza los canales de contacto.";
-  });
+  cargasDeContenido.push(
+    import("./tienda.js").then(({ inicializarTienda }) => inicializarTienda()).catch(() => {
+      document.getElementById("estado-catalogo").textContent =
+        "No pudimos iniciar los paquetes. Recarga la página o utiliza los canales de contacto.";
+    }),
+  );
 }
+void Promise.allSettled([...cargasDeContenido, document.fonts?.ready]).then(restaurarScrollTrasContenido);

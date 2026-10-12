@@ -9,6 +9,8 @@ export function inicializarTienda() {
   const buscar = id => document.getElementById(id);
   const catalogo = buscar("catalogo-productos");
   if (!catalogo) return;
+  const panelCarrito = buscar("carrito");
+  const abrirCarrito = buscar("abrir-carrito");
   const dialogo = buscar("configurar-paquete");
   const configuracion = buscar("formulario-paquete");
   const lineas = buscar("lineas-carrito");
@@ -27,6 +29,8 @@ export function inicializarTienda() {
   let productoActual = null;
   let editando = null;
   let origenFoco = null;
+  let origenFocoCarrito = null;
+  let focoCarritoAlCerrar = null;
   let intentoCompra = false;
   let finalizandoCompra = false;
 
@@ -75,11 +79,51 @@ export function inicializarTienda() {
   inicializarBorrador(formulario, campos, actualizarEntrega, {
     clave: "valora-pedido-v1", recordarId: "recordar-pedido",
     borrarId: "borrar-pedido", estadoId: "estado-borrador-pedido",
+    recordarPorDefecto: true,
   });
   // Un valor de select almacenado que ya no exista no debe bloquear los cálculos.
   if (!["retiro", "domicilio"].includes(entrega.value)) entrega.value = leerPreferenciaEntrega();
   actualizarEntrega();
   fecha.addEventListener("focus", () => { fecha.min = fechaLocal(); });
+
+  function cerrarPanelCarrito(destino = null) {
+    if (!panelCarrito.open) return;
+    focoCarritoAlCerrar = destino;
+    panelCarrito.close();
+  }
+
+  abrirCarrito.addEventListener("click", () => {
+    if (typeof panelCarrito.showModal !== "function") return;
+    origenFocoCarrito = abrirCarrito;
+    panelCarrito.showModal();
+    abrirCarrito.setAttribute("aria-expanded", "true");
+    buscar("cerrar-carrito").focus();
+  });
+  buscar("cerrar-carrito").addEventListener("click", () => cerrarPanelCarrito());
+  panelCarrito.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      cerrarPanelCarrito();
+    }
+  });
+  panelCarrito.addEventListener("close", () => {
+    abrirCarrito.setAttribute("aria-expanded", "false");
+    const destino = focoCarritoAlCerrar ?? origenFocoCarrito;
+    focoCarritoAlCerrar = null;
+    origenFocoCarrito = null;
+    if (destino?.isConnected) destino.focus({ preventScroll: true });
+  });
+  panelCarrito.addEventListener("click", event => {
+    if (event.target === panelCarrito) {
+      const limites = panelCarrito.getBoundingClientRect();
+      if (event.clientX < limites.left || event.clientX > limites.right ||
+          event.clientY < limites.top || event.clientY > limites.bottom) cerrarPanelCarrito();
+      return;
+    }
+    const enlace = event.target.closest('a[href^="#"]');
+    const destino = enlace && document.getElementById(enlace.hash.slice(1));
+    if (destino && !panelCarrito.contains(destino)) cerrarPanelCarrito(destino);
+  });
 
   async function cargar() {
     if (cargando) return;
@@ -379,7 +423,7 @@ export function inicializarTienda() {
   buscar("seguir-comprando").addEventListener("click", () => {
     invalidarComprobante();
     actualizarVisibilidad();
-    enfocar(buscar("titulo-paquetes"));
+    cerrarPanelCarrito(buscar("titulo-paquetes"));
   });
   window.addEventListener("storage", event => {
     if (!productos.length || (event.key !== "valora-carrito-v1" && event.key !== null)) return;
@@ -393,5 +437,5 @@ export function inicializarTienda() {
     anunciar("El carrito cambió en otra pestaña. Revisa el pedido actualizado.");
     if (moverFoco) enfocar(buscar("titulo-carrito"));
   });
-  void cargar();
+  return cargar();
 }

@@ -4,6 +4,7 @@ const CLAVE_BORRADOR = "valora-borrador-v1";
 export function inicializarBorrador(formulario, campos, alRestaurar, {
   clave = CLAVE_BORRADOR, recordarId = "recordar-borrador",
   borrarId = "borrar-borrador", estadoId = "estado-borrador",
+  recordarPorDefecto = false,
 } = {}) {
   const recordar = document.getElementById(recordarId);
   const borrar = document.getElementById(borrarId);
@@ -14,6 +15,7 @@ export function inicializarBorrador(formulario, campos, alRestaurar, {
   const avisar = (mensaje) => {
     if (estado.textContent !== mensaje) estado.textContent = mensaje;
   };
+  recordar.checked = recordarPorDefecto;
   function falloAlmacenamiento() {
     disponible = false;
     recordar.checked = false;
